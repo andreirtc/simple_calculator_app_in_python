@@ -104,4 +104,25 @@ class simple_calculator(tk.Tk):
 
 # 6. Define a function to calculate and output results
 
+    def calculate_result(self):
+        result = None
+        if self.operation == 1:
+            result = self.num1 + self.num2
+        elif self.operation == 2:
+            result = self.num1 - self.num2
+        elif self.operation == 3:
+            result = self.num1 * self.num2
+        elif self.operation == 4:
+            try: 
+                result = self.num1 / self.num2
+            except ZeroDivisionError: 
+                self.num2 == 0
+                self.add_message("C: Division by zero is not allowed.") 
+
+        self.add_message(f"C: The result is {result}!")
+        self.add_message("C: Do you want to try again? (y/n)")
+        
+if __name__ == "__main__":
+    app = simple_calculator()
+    app.mainloop()
     
