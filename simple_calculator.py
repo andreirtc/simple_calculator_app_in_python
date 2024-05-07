@@ -39,5 +39,14 @@ class simple_calculator(tk.Tk):
         self.input_entry.bind("<Return>", self.send_message_enter)
 
 # 4. Define a function to initialize chat
+
+    def initialize_chat(self):
+        self.add_message("C: Hi! I'm Calci a simple calculator programmed using Python.")
+        self.add_message("C: What operation do you need?")
+        self.add_message("(1) Addition")
+        self.add_message("(2) Subtraction")
+        self.add_message("(3) Multiplication")
+        self.add_message("(4) Division")
+        
 # 5. Define functions to add and send message. Under function send message, use if-else and exception handling in case of wrong input or zero division error.
 # 6. Define a function to calculate and output results
