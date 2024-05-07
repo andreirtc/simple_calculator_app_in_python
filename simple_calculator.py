@@ -47,6 +47,61 @@ class simple_calculator(tk.Tk):
         self.add_message("(2) Subtraction")
         self.add_message("(3) Multiplication")
         self.add_message("(4) Division")
-        
+
 # 5. Define functions to add and send message. Under function send message, use if-else and exception handling in case of wrong input or zero division error.
+
+    def add_message(self, message):
+        self.chat_text.insert(tk.END, message + "\n")
+        self.chat_text.see(tk.END)
+
+    def send_message(self, event=None):
+        user_input = self.input_entry.get()
+        self.history.append(user_input)
+
+        if len(self.history) == 1:  # Choose operation
+            try:
+                choice = int(user_input)
+                if choice not in range(1, 5):
+                    raise ValueError("Invalid choice")
+                self.operation = choice
+                self.add_message(f"U: {user_input}")
+                self.add_message("C: Enter your first number:")
+                self.input_entry.delete(0, tk.END)
+            except ValueError:
+                self.add_message("C: Invalid choice. Please enter a number from 1 to 4.")
+        elif len(self.history) == 2:  # First number
+            try:
+                self.num1 = float(user_input)
+                self.add_message(f"U: {user_input}")
+                self.add_message("C: Enter your second number:")
+                self.input_entry.delete(0, tk.END)
+            except ValueError:
+                self.add_message("C: Invalid input. Please enter a valid number.")
+        elif len(self.history) == 3:  # Second number
+            try:
+                self.num2 = float(user_input)
+                self.add_message(f"U: {user_input}")
+                self.calculate_result()
+                self.input_entry.delete(0, tk.END)  # Clear input after calculation
+            except ValueError:
+                self.add_message("C: Invalid input. Please enter a valid number.")
+        elif len(self.history) == 4:  # Try again prompt
+            if user_input.lower() == 'y':
+                self.history = []  # Reset chat history
+                self.initialize_chat()  # Restart the conversation
+                self.input_entry.delete(0, tk.END)
+            elif user_input.lower() == 'n':
+                self.add_message(f"U: {user_input}")
+                self.add_message("C: Thank you for using Calci!")
+                self.input_entry.config(state=tk.DISABLED)
+            else:
+                self.add_message("C: Invalid input. Please enter 'y' or 'n'.")
+                self.add_message("C: Do you want to try again? (y/n)")
+            self.input_entry.delete(0, tk.END)
+
+    def send_message_enter(self, event):
+        self.send_message()
+
 # 6. Define a function to calculate and output results
+
+    
